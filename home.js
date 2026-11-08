@@ -62,6 +62,10 @@
     check(true);
     // перепроверка при открытии карточки фильма — до выбора торрента
     Lampa.Listener.follow('full', function (e) { if (e.type === 'complite') check(false); });
+    // и каждый раз при открытии списка торрентов — без задержки
+    Lampa.Listener.follow('activity', function (e) {
+      if (e.type === 'start' && e.component === 'torrents') check(true);
+    });
     // и раз в 5 минут, пока Lampa открыта
     setInterval(function () { check(true); }, 5 * 60 * 1000);
   }
